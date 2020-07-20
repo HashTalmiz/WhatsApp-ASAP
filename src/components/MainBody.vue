@@ -3,14 +3,14 @@
  <body>
   <div class="container">
     <div class="info">
-      <h1>One Time WhatsApp</h1><!-- /ASAP/ No Save-->
+      <h1><i class="fa fa-whatsapp" style="color:green" aria-hidden="true"></i>   WhatsApp ASAP</h1><!-- /ASAP/ No Save-->
       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure tenetur, corporis nostrum maxime inventore illum eligendi nobis mollitia id ex?</p>
       <div>
         +<input type="number" id="cCode" v-model="user.countryCode" maxlength="2" class="form-control" />
         <input type="number" id="phoneNumber" v-model="user.phoneNumber" maxlength="10" class="form-control"/>
       </div>
       <p v-if="error && submitting" class="error-message">
-          ❗Please enter a 10 digit number with a 2 digit pin code
+          ❗Please enter a 10 digit number with a 2 digit country code
       </p>
       <button type="button" class="accent-button" @click="handleSubmit" >Start Chat</button>
     </div>
@@ -38,8 +38,8 @@ export default {
   name: 'MainBody',
   data() {
     return {
-      error: false,
-      submitting: false,
+      error: true,
+      submitting: true,
       user : {
         phoneNumber: '',
         countryCode: '91'
@@ -48,7 +48,10 @@ export default {
   },
   computed: {
     iPhoneOutput() {
-      return this.user.countryCode+' '+this.user.phoneNumber;
+      if(this.user.countryCode<=2 && this.user.phoneNumber<=10)
+        return this.user.countryCode+' '+this.user.phoneNumber;
+        
+      return this.user.countryCode.slice(0,2)+ ' ' + this.user.phoneNumber.slice(0,10);
     },
     redirectLink: function(){
       return `https://api.WhatsApp.com/send?phone=${this.countryCode+this.number}`
