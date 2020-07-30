@@ -158,9 +158,7 @@ input[type=number] {
 .success-message {
     color: #32a95d;
 }
-.footer {
-  /* margin: 0 auto; */
-}
+
 #github-icon {
   display: inline-block;
   width: 100%;
