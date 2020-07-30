@@ -65,8 +65,8 @@ export default {
         
       return this.user.countryCode.slice(0,2)+ ' ' + this.user.phoneNumber.slice(0,10);
     },
-    redirectLink: function(){
-      return `https://api.WhatsApp.com/send?phone=${this.countryCode+this.number}`
+    redirectLink(){
+      return `https://api.WhatsApp.com/send?phone=${this.user.countryCode+this.user.phoneNumber}`
     }
   },
   methods: {
