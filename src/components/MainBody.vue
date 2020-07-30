@@ -3,8 +3,8 @@
  <body>
   <div class="container">
     <div class="info">
-      <h1><i class="fa fa-whatsapp" style="color:green" aria-hidden="true"></i>   WhatsApp ASAP</h1><!-- /ASAP/ No Save-->
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure tenetur, corporis nostrum maxime inventore illum eligendi nobis mollitia id ex?</p>
+      <h1><i class="fa fa-whatsapp" style="color:blue" aria-hidden="true"></i>   WhatsApp ASAP</h1><!-- /ASAP/ No Save-->
+      <p style="margin: 0">A simple way to open up a WhatsApp chat <b>without</b> having to save the contact first.<br> Works on all phones and Whastapp-Web</p>
       <div>
         +<input type="number" id="cCode" v-model="user.countryCode" @focus="clearStatus" maxlength="2" class="form-control" />
         <input type="number" id="phoneNumber" v-model="user.phoneNumber" @focus="clearStatus" maxlength="10" class="form-control"/>
@@ -24,9 +24,8 @@
 
     
     <div class="footer">
-      <p>Made by Talmiz Ahmed</p>
-      <i>heh
-      </i>
+      <a href="https://github.com/HashTalmiz/WhatsApp-ASAP" target="_blank"><i class="fa fa-github" id="github-icon" aria-hidden="true"></i></a>
+      <p><i>Made by Talmiz Ahmed</i></p>
     </div>
     
   </div>
@@ -48,6 +47,10 @@ export default {
         countryCode: '91'
       }
     }
+  },
+  beforeCreate(){
+    document.title = "WhatsApp ASAP! An Easy way to start a chat on whatsapp wihtout saving the number in your contacts";
+    console.log("HEY, what are you doing down here?")
   },
   computed: {
     validCountryCode() {
@@ -144,15 +147,26 @@ input[type=number] {
 }
 
 
-  [class*='-message'] {
+[class*='-message'] {
     font-weight: 500;
-  }
+}
 
-  .error-message {
+.error-message {
     color: #d33c40;
-  }
+}
 
-  .success-message {
+.success-message {
     color: #32a95d;
-  }
+}
+.footer {
+  /* margin: 0 auto; */
+}
+#github-icon {
+  display: inline-block;
+  width: 100%;
+  font-size: 3em;
+  text-align: center;
+  color: black;
+}
+
 </style>
