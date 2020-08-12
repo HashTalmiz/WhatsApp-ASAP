@@ -7,7 +7,7 @@
       <p style="margin: 0">A simple way to open up a WhatsApp chat <b>without</b> having to save the contact first.<br> Works on all phones and Whastapp-Web</p>
       <div>
         +<input type="number" id="cCode" v-model="user.countryCode" @focus="clearStatus"  class="form-control" />
-        <input type="number" id="phoneNumber" v-model="user.phoneNumber" @focus="clearStatus" @paste="onPaste" class="form-control"/>
+        <input type="number" id="phoneNumber" v-model="user.phoneNumber" @focus="clearStatus" @paste.prevent="onPaste" class="form-control"/>
       </div>
       <p v-if="error" class="error-message">
           ❗Please enter a 10 digit number with a 2 digit country code
@@ -74,9 +74,12 @@ export default {
       this.error=false;
       this.success=false;
     },
-    sanitize(){
-      this.user.phoneNumber.trim();
-      this.user.phoneNumber= this.user.phoneNumber.replace(/\s+/g, '');
+    sanitize(dirtyData){
+      dirtyData= dirtyData.trim();
+      dirtyData = dirtyData.replace(/[^\d]/g, '');
+      return dirtyData
+      // this.user.phoneNumber.trim();
+      // this.user.phoneNumber= this.user.phoneNumber.replace(/\s+/g, '');
     },
     handleSubmit(){
       this.clearStatus();
@@ -89,13 +92,13 @@ export default {
         this.error=true;
     },
     onPaste (evt) {
-      let pasteText =  evt.clipboardData.getData('text');
-      pasteText = pasteText.replace(/\s+/g, '');
-      pasteText = pasteText.trim();
+
+      let pastedData =  evt.clipboardData.getData('text');
+      const cleanData = this.sanitize(pastedData);
+      this.user.phoneNumber =cleanData;
+
       // pasteText = pasteText.slice(0,10);
-      console.log(pasteText);
-      // this.user.phoneNumber="";
-      // this.user.phoneNumber-=pasteText;
+      console.log(this.user.phoneNumber);
     },
     openWhatsapp: function(){
       window.open(`${this.redirectLink}`);
