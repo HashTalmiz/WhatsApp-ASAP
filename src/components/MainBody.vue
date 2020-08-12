@@ -4,15 +4,17 @@
   <div class="container">
     <div class="info">
       <h1><i class="fa fa-whatsapp" style="color:blue" aria-hidden="true"></i>   WhatsApp ASAP</h1><!-- /ASAP/ No Save-->
-      <p style="margin: 0">A simple way to open up a WhatsApp chat <b>without</b> having to save the contact first.<br> Works on all phones and Whastapp-Web</p>
+      <p style="margin: 0">A simple way to open up a WhatsApp chat <b>without</b> having to save the contact first.<br> Works on all phones and WhatsApp-Web</p>
       <div>
-        +<input type="number" id="cCode" v-model="user.countryCode" @focus="clearStatus"  class="form-control" />
-        <input type="number" id="phoneNumber" v-model="user.phoneNumber" @focus="clearStatus" @paste.prevent="onPaste" class="form-control"/>
+        +<input type="number" id="cCode" v-model="user.countryCode" @focus="clearStatus" maxlength="2" class="form-control" />
+        <input type="number" id="phoneNumber" v-model="user.phoneNumber" @focus="clearStatus" maxlength="10" @paste.prevent="onPaste" class="form-control"/>
+      <div v-if="!error && !success">Number count: <span :class="{success_message: this.validCountryCode && this.validPhoneNumber}">{{this.user.countryCode.length}} + {{this.user.phoneNumber.length}}</span></div>
+       <!--condition for red text on incorrect num count /, error_message: !this.validCountryCode || !this.validPhoneNumber /-->
       </div>
-      <p v-if="error" class="error-message">
+      <p v-if="error" class="error_message">
           ❗Please enter a 10 digit number with a 2 digit country code
       </p>
-      <p v-if="success" class="success-message">
+      <p v-if="success" class="success_message">
           ✅ Success! Make sure you don't have pop ups blocked!
       </p>
       <button type="button" class="accent-button" @click="handleSubmit" >Start Chat</button>
@@ -25,7 +27,7 @@
     
     <div class="footer">
       <a href="https://github.com/HashTalmiz/WhatsApp-ASAP" target="_blank"><i class="fa fa-github" id="github-icon" aria-hidden="true"></i></a>
-      <p><i>Made by Talmiz Ahmed</i></p>
+      <p><i>© 2020 Talmiz Ahmed </i></p>
     </div>
     
   </div>
@@ -49,7 +51,7 @@ export default {
     }
   },
   beforeCreate(){
-    document.title = "WhatsApp ASAP! An Easy way to start a chat on whatsapp wihtout saving the number in your contacts";
+    document.title = "WhatsApp ASAP | A simple way to open up a WhatsApp chat without having to save the contact first. Works on all phones and WhatsApp-Web";
     console.log("HEY, what are you doing down here?")
   },
   computed: {
@@ -83,7 +85,6 @@ export default {
     },
     handleSubmit(){
       this.clearStatus();
-      this.sanitize();
       if(this.validCountryCode && this.validPhoneNumber)
       {
         this.success = true;
@@ -125,7 +126,9 @@ input {
 input[type=number] {
 -moz-appearance: textfield;
 }
-
+p {
+  margin-bottom: 10px;
+}
 .container {
     max-width: 700px;
     display: grid;
@@ -168,18 +171,18 @@ input[type=number] {
     font-weight: 500;
 }
 
-.error-message {
+.error_message {
     color: #d33c40;
 }
 
-.success-message {
+.success_message {
     color: #32a95d;
 }
 
 #github-icon {
   display: inline-block;
   width: 100%;
-  font-size: 3em;
+  font-size: 2.5em;
   text-align: center;
   color: black;
 }
