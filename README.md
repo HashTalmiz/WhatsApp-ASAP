@@ -1,4 +1,5 @@
-# whatsapp-asap
+# Whatsapp ASAP
+Quick and simple way to start a WhatsApp chat with someone who isn't saved in your contacts
 
 ## Project setup
 ```
