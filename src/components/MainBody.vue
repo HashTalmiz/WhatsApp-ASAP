@@ -50,7 +50,7 @@ export default {
     }
   },
   beforeCreate(){
-    document.title = "WhatsApp ASAP | A simple way to open up a WhatsApp chat without having to save the contact first. Works on all phones and WhatsApp-Web";
+    document.title = "WhatsApp ASAP | Open a New WhatsApp chat without saving to contacts first";
     console.log("HEY, what are you doing down here?")
   },
   computed: {
@@ -111,8 +111,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
 -webkit-appearance: none;
@@ -125,57 +123,59 @@ input {
 input[type=number] {
 -moz-appearance: textfield;
 }
+
+
 p {
   margin-bottom: 10px;
 }
 .container {
-    max-width: 700px;
-    display: grid;
-    justify-items: center;
-    grid-gap: 1em;
-    padding-top: 50px;
-    margin: 0 auto;
+  max-width: 700px;
+  display: grid;
+  justify-items: center;
+  grid-gap: 1em;
+  padding-top: 50px;
+  margin: 0 auto;
     
 }
 .info {
-    text-align: center;
+  text-align: center;
 }
 #cCode {
-    width: 50px;
-    margin-bottom: 10px;
+  width: 50px;
+  margin-bottom: 10px;
 }
 #phoneNumber {
-    width: 200px;
-    margin: 10px;
+  width: 200px;
+  margin: 10px;
 }
 #photo {
-    display: flex;
-    min-width: 290px;
-    min-height: 300px;
-    background-image: url('../assets/iphone.png');
-    background-repeat: no-repeat;
-    background-size: contain;
+  display: flex;
+  min-width: 290px;
+  min-height: 300px;
+  background-image: url('../assets/iphone-mini.png');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 #photo p {
-    position: relative;
-    /* text-align: center; */
-    display: inline;
-    margin: 17% 20%;
-    font-weight: bold;
-    font-size: large;
+  position: relative;
+  /* text-align: center; */
+  display: inline;
+  margin: 17% 20%;
+  font-weight: bold;
+  font-size: large;
 }
 
 
 [class*='-message'] {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .error_message {
-    color: #d33c40;
+  color: #d33c40;
 }
 
 .success_message {
-    color: #32a95d;
+  color: #32a95d;
 }
 
 #github-icon {
