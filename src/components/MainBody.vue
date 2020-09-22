@@ -8,7 +8,7 @@
       <div>
         +<input type="number" id="cCode" v-model="user.countryCode" @focus="clearStatus" maxlength="2" class="form-control" />
         <input type="number" id="phoneNumber" v-model="user.phoneNumber" @focus="clearStatus" maxlength="10" @paste.prevent="onPaste" class="form-control"/>
-      <div style="font-family: 'Bitter', serif" v-if="!error && !success">Number count: <span style="font-family: sans-serif" :class="{success_message: this.validCountryCode && this.validPhoneNumber, error_message: !this.validCountryCode || !this.validPhoneNumber }">{{this.user.countryCode.length}} + {{this.user.phoneNumber.length}}</span></div>
+      <div v-if="!error && !success"><i>Number count: </i><span style="font-family: sans-serif" :class="{success_message: this.validCountryCode && this.validPhoneNumber, error_message: !this.validCountryCode || !this.validPhoneNumber }">{{this.user.countryCode.length}} + {{this.user.phoneNumber.length}}</span></div>
       </div>
       <p v-if="error" class="error_message">
           ❗Please enter a 10 digit number with a 2 digit country code
