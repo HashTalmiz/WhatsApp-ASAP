@@ -2,7 +2,7 @@
   <body>
     <div class="container">
       <h1>
-        <i class="fa fa-whatsapp" style="color: blue" aria-hidden="true"></i>
+        <i class="fa fa-whatsapp" style="color: #58de7d" aria-hidden="true"></i>
         WhatsApp ASAP
       </h1>
       <!-- /ASAP/ No Save-->
@@ -49,7 +49,7 @@
         ✅ Success! Make sure you don't have pop ups blocked!
       </p>
       <button type="button" class="open-button" @click="handleSubmit">
-        Open Chat
+        Start Chat
       </button>
 
       <div class="iPhone">
@@ -85,7 +85,7 @@ export default {
   },
   beforeCreate() {
     document.title =
-      "WhatsApp ASAP | Open a New WhatsApp chat without saving to contacts first";
+      "WhatsApp ASAP | Open a New WhatsApp chat without saving to contacts!";
     console.log("HEY, what are you doing down here?");
   },
   computed: {
@@ -132,9 +132,6 @@ export default {
       let pastedData = evt.clipboardData.getData("text");
       const cleanData = this.sanitize(pastedData);
       this.user.phoneNumber = cleanData;
-
-      // pasteText = pasteText.slice(0,10);
-      console.log(this.user.phoneNumber);
     },
     openWhatsapp: function () {
       window.open(`${this.redirectLink}`);
@@ -169,24 +166,41 @@ input {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1rem;
   display: inline;
-  margin: 0 auto;
 }
+
 input[type="number"] {
   width: 100%;
   padding: 12px 10px;
   margin: 0 3px;
   display: inline-block;
   border: 1px solid #ccc;
-  outline: 0;
   border-radius: 4px;
   box-sizing: border-box;
   -moz-appearance: textfield;
 }
+input:focus {
+  box-shadow: 0 00 4px #0058fc;
+}
+
 img {
   display: block;
   max-width: 100%;
 }
-
+.open-button {
+  font-size: 1rem;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  width: 120px;
+  border: none;
+  padding: 0.8em;
+  color: white;
+  background-color: #58de7d;
+  border-radius: 5px;
+}
+.open-button:hover {
+  cursor: pointer;
+  background-color: #4fc470;
+}
 .container {
   max-width: 700px;
   width: 90%;
