@@ -106,7 +106,9 @@ export default {
     },
     redirectLink() {
       return `${
-        process.env.API_URL + this.user.countryCode + this.user.phoneNumber
+        process.env.VUE_APP_API_URL +
+        this.user.countryCode +
+        this.user.phoneNumber
       }`;
     },
   },
