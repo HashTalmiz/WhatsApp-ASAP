@@ -2,7 +2,7 @@
   <body>
     <div class="container">
       <h1>
-        <i class="fa fa-whatsapp" style="color: #58de7d" aria-hidden="true"></i>
+        <i class="fa fa-whatsapp" style="color: #3cd668" aria-hidden="true"></i>
         WhatsApp ASAP
       </h1>
       <!-- /ASAP/ No Save-->
@@ -12,8 +12,8 @@
         Works on all phones and WhatsApp-Web
       </p>
       <div class="numberfields">
-        <b>+ </b
-        ><input
+        <b>+ </b>
+        <input
           type="number"
           id="cCode"
           v-model="user.countryCode"
@@ -32,8 +32,8 @@
         />
       </div>
       <div v-if="!error && !success">
-        <i>Number count: </i
-        ><span
+        <i>Number count: </i>
+        <span
           :class="{
             success_message: this.validCountryCode && this.validPhoneNumber,
             error_message: !this.validCountryCode || !this.validPhoneNumber,
@@ -61,9 +61,9 @@
       </div>
 
       <div class="footer">
-        <a href="https://github.com/HashTalmiz/WhatsApp-ASAP" target="_blank"
-          ><i class="fa fa-github" id="github-icon" aria-hidden="true"></i
-        ></a>
+        <a href="https://github.com/HashTalmiz/WhatsApp-ASAP" target="_blank">
+          <i class="fa fa-github" id="github-icon" aria-hidden="true"></i>
+        </a>
         <p><i>Made by Talmiz Ahmed </i></p>
       </div>
     </div>
@@ -86,7 +86,6 @@ export default {
   beforeCreate() {
     document.title =
       "WhatsApp ASAP | Open a New WhatsApp chat without saving to contacts!";
-    console.log("HEY, what are you doing down here?");
   },
   computed: {
     validCountryCode() {
@@ -106,8 +105,8 @@ export default {
       );
     },
     redirectLink() {
-      return `https://api.WhatsApp.com/send?phone=${
-        this.user.countryCode + this.user.phoneNumber
+      return `${
+        process.env.API_URL + this.user.countryCode + this.user.phoneNumber
       }`;
     },
   },
