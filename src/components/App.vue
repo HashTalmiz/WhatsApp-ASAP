@@ -11,6 +11,7 @@
         the contact first.<br />
         Works on all phones and WhatsApp-Web
       </p>
+      <img v-if="validCountryCode" :src="url" alt="flag" />
       <div class="numberfields">
         <b>+ </b>
         <input
@@ -71,6 +72,8 @@
 </template>
 
 <script>
+import { getCountry } from "../utils";
+import PhoneNumber from "awesome-phonenumber";
 export default {
   name: "App",
   data() {
@@ -79,15 +82,26 @@ export default {
       success: false,
       user: {
         phoneNumber: "",
-        countryCode: "91",
+        countryCode: "",
       },
     };
   },
   beforeCreate() {
     document.title =
       "WhatsApp ASAP | Open a New WhatsApp chat without saving to contacts!";
+    getCountry().then((iso) => {
+      this.user.countryCode = PhoneNumber.getCountryCodeForRegionCode(
+        iso
+      ).toString();
+    });
   },
   computed: {
+    url() {
+      if (!this.user.countryCode) return;
+      return `https://www.countryflags.io/${PhoneNumber.getRegionCodeForCountryCode(
+        this.user.countryCode
+      ).toLowerCase()}/flat/32.png`;
+    },
     validCountryCode() {
       return this.user.countryCode.length === 2;
     },
