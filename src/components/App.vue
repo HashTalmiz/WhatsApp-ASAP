@@ -9,9 +9,8 @@
       <p style="margin: 0">
         A simple way to open up a WhatsApp chat <b>without</b> having to save
         the contact first.<br />
-        Works on all phones and WhatsApp-Web
+        Make sure you have whatsapp installed
       </p>
-      <img v-if="validCountryCode" :src="url" alt="flag" />
       <div class="numberfields">
         <b>+ </b>
         <input
@@ -33,7 +32,15 @@
         />
       </div>
       <div v-if="!error && !success">
-        <i>Number count: </i>
+        <img
+          v-if="validCountryCode"
+          style="display: inline"
+          :src="flagUrl"
+          alt="Country flag"
+        />
+        <!-- <div :style="{ background: `no-repeat url(${flagUrl})` }">X</div> -->
+        <span v-else>❌</span>
+        <i> Number count: </i>
         <span
           :class="{
             success_message: this.validCountryCode && this.validPhoneNumber,
@@ -44,7 +51,7 @@
         >
       </div>
       <p v-if="error" class="error_message">
-        ❗Please enter a 10 digit number with a 2 digit country code
+        ❗Please enter a valid phone number
       </p>
       <p v-if="success" class="success_message">
         ✅ Success! Make sure you don't have pop ups blocked!
@@ -90,30 +97,40 @@ export default {
     document.title =
       "WhatsApp ASAP | Open a New WhatsApp chat without saving to contacts!";
     getCountry().then((iso) => {
-      this.user.countryCode = PhoneNumber.getCountryCodeForRegionCode(
-        iso
-      ).toString();
+      this.countryLetterCode = iso;
     });
   },
   computed: {
-    url() {
+    flagUrl() {
       if (!this.user.countryCode) return;
-      return `https://www.countryflags.io/${PhoneNumber.getRegionCodeForCountryCode(
-        this.user.countryCode
-      ).toLowerCase()}/flat/32.png`;
+      return `https://www.countryflags.io/${this.countryLetterCode.toLowerCase()}/${
+        this.validPhoneNumber ? "shiny" : "flat"
+      }/32.png`;
+    },
+    countryLetterCode: {
+      get: function () {
+        return PhoneNumber.getRegionCodeForCountryCode(this.user.countryCode);
+      },
+      set: function (iso) {
+        this.user.countryCode = PhoneNumber.getCountryCodeForRegionCode(
+          iso
+        ).toString();
+      },
     },
     validCountryCode() {
-      return this.user.countryCode.length === 2;
+      return this.countryLetterCode !== "ZZ";
     },
     validPhoneNumber() {
-      return this.user.phoneNumber.length === 10;
+      return PhoneNumber(
+        `+${this.user.countryCode + this.user.phoneNumber}`
+      ).isValid();
     },
     iPhoneOutput() {
-      if (this.user.countryCode <= 2 && this.user.phoneNumber <= 10)
+      if (this.user.countryCode <= 4 && this.user.phoneNumber <= 10)
         return this.user.countryCode + " " + this.user.phoneNumber;
 
       return (
-        this.user.countryCode.slice(0, 2) +
+        this.user.countryCode.slice(0, 4) +
         " " +
         this.user.phoneNumber.slice(0, 10)
       );
