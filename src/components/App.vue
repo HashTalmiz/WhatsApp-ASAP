@@ -5,42 +5,42 @@
         <i class="fa fa-whatsapp" style="color: #3cd668" aria-hidden="true"></i>
         WhatsApp ASAP
       </h1>
-      <!-- /ASAP/ No Save-->
-      <p style="margin: 0">
+      <div style="margin: 0">
         A simple way to open up a WhatsApp chat <b>without</b> having to save
-        the contact first.<br />
-        Make sure you have whatsapp installed
-      </p>
+        the contact first. <br />
+        <!-- Works on all phones and WhatsApp Desktop -->
+      </div>
+
       <div class="numberfields">
         <b>+ </b>
         <input
           type="number"
+          title="Country code"
+          aria-labelledby="Country code"
           id="cCode"
           v-model="user.countryCode"
           @focus="clearStatus"
-          maxlength="2"
-          class="form-control"
         />
         <input
           type="number"
+          title="Phone number"
+          aria-labelledby="Phone Number"
           id="phoneNumber"
           v-model="user.phoneNumber"
           @focus="clearStatus"
-          maxlength="10"
           @paste.prevent="onPaste"
           class="form-control"
         />
       </div>
-      <div v-if="!error && !success">
+      <div class="validation-label" v-if="!error && !success">
         <img
           v-if="validCountryCode"
           style="display: inline"
           :src="flagUrl"
           alt="Country flag"
         />
-        <!-- <div :style="{ background: `no-repeat url(${flagUrl})` }">X</div> -->
         <span v-else>❌</span>
-        <i> Number count: </i>
+        <span> Number count: </span>
         <span
           :class="{
             success_message: this.validCountryCode && this.validPhoneNumber,
@@ -50,6 +50,7 @@
           {{ this.user.phoneNumber.length }}</span
         >
       </div>
+
       <p v-if="error" class="error_message">
         ❗Please enter a valid phone number
       </p>
@@ -68,12 +69,12 @@
         <span>+{{ iPhoneOutput }}</span>
       </div>
 
-      <div class="footer">
+      <footer>
         <a href="https://github.com/HashTalmiz/WhatsApp-ASAP" target="_blank">
           <i class="fa fa-github" id="github-icon" aria-hidden="true"></i>
         </a>
         <p><i>Made by Talmiz Ahmed </i></p>
-      </div>
+      </footer>
     </div>
   </body>
 </template>
@@ -93,7 +94,7 @@ export default {
       },
     };
   },
-  beforeCreate() {
+  created() {
     document.title =
       "WhatsApp ASAP | Open a New WhatsApp chat without saving to contacts!";
     getCountry().then((iso) => {
@@ -198,17 +199,14 @@ input {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1rem;
   display: inline;
-}
-
-input[type="number"] {
   width: 100%;
   padding: 12px 10px;
   margin: 0 3px;
-  display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
   -moz-appearance: textfield;
+  /* box-shadow: 0 0 2px 1px red; */
 }
 input:focus {
   box-shadow: 0 00 4px #0058fc;
@@ -217,6 +215,16 @@ input:focus {
 img {
   display: block;
   max-width: 100%;
+}
+.container {
+  max-width: 500px;
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  justify-items: center;
+  grid-gap: 0.5em;
+  padding-top: 50px;
+  text-align: center;
 }
 .open-button {
   font-size: 1rem;
@@ -233,20 +241,20 @@ img {
   cursor: pointer;
   background-color: #4fc470;
 }
-.container {
-  max-width: 700px;
-  width: 90%;
-  margin: 0 auto;
-  display: grid;
-  justify-items: center;
-  grid-gap: 1em;
-  padding-top: 50px;
-  text-align: center;
-}
+
 .numberfields {
   display: flex;
   align-items: center;
 }
+
+.validation-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-grow: 1;
+  width: 200px;
+}
+
 #cCode {
   width: 50px;
 }
@@ -273,7 +281,9 @@ img {
 .success_message {
   color: #32a95d;
 }
-
+footer {
+  align-self: end;
+}
 #github-icon {
   display: inline-block;
   width: 100%;
