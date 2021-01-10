@@ -9,6 +9,7 @@
     "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
+    "awesome-phonenumber": "^2.43.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11"
   },
